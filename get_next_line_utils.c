@@ -6,7 +6,7 @@
 /*   By: afaugero <afaugero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:41:08 by afaugero          #+#    #+#             */
-/*   Updated: 2024/11/29 15:33:56 by afaugero         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:48:41 by afaugero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strndup(char *src, size_t n)
 	size_t	i;
 	char	*dup;
 
-	dup = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
+	dup = (char *)malloc(sizeof(char) * (n + 1));
 	if (!dup)
 		return (NULL);
 	i = 0;

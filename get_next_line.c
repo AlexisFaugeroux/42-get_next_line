@@ -6,7 +6,7 @@
 /*   By: afaugero <afaugero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 13:47:34 by afaugero          #+#    #+#             */
-/*   Updated: 2024/11/29 16:50:14 by afaugero         ###   ########.fr       */
+/*   Updated: 2024/12/01 18:44:04 by afaugero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 char	*ft_read(char *line, int fd)
 {
-	char	buffer[BUFFER_SIZE];
+	char	buffer[BUFFER_SIZE + 1];
 	char	*res;
 	ssize_t	bytes_read;
 
@@ -30,13 +30,10 @@ char	*ft_read(char *line, int fd)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)
 			return (NULL);
+    buffer[bytes_read] = '\0';
 		res = ft_strjoin(line, buffer);
 		if (!res)
-		{
-			free(res);
 			return (NULL);
-		}
-		free(line);
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
@@ -46,6 +43,21 @@ char	*ft_read(char *line, int fd)
 char	*ft_line(char *line)
 {
 	size_t	i;
+  char    *res;
+
+  printf("%s\n", line);
+  i = 0;
+  while (*(line + i) != '\n')
+    i++;
+  res = ft_strndup(line, i);
+  if (!res)
+  {
+    free(line);
+    return (NULL);
+  }
+  free(line);
+  printf("%s\n", res);
+  return (res);
 }
 
 char	*get_next_line(int fd)
@@ -57,6 +69,9 @@ char	*get_next_line(int fd)
 	line = ft_read(line, fd);
 	if (!line)
 		return (NULL);
+  line = ft_line(line);
+  if (!line)
+    return (NULL);
 	return (line);
 }
 
@@ -72,11 +87,11 @@ int	main(int argc, char **argv)
 		printf("Erreur ouverture fichier");
 		return (0);
 	}
-	printf("Result: %s\n", get_next_line(fd));
-	printf("Result: %s\n", get_next_line(fd));
-	printf("Result: %s\n", get_next_line(fd));
-	printf("Result: %s\n", get_next_line(fd));
-	printf("Result: %s\n", get_next_line(fd));
-	printf("Result: %s\n", get_next_line(fd));
-	printf("Result: %s\n", get_next_line(fd));
+	/* printf("Result:\n"); */
+  get_next_line(fd);
+	/* printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd)); */
+  close(fd);
 }

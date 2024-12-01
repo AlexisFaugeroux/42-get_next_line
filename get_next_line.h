@@ -6,7 +6,7 @@
 /*   By: afaugero <afaugero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 13:47:11 by afaugero          #+#    #+#             */
-/*   Updated: 2024/11/29 15:21:47 by afaugero         ###   ########.fr       */
+/*   Updated: 2024/12/01 18:40:03 by afaugero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*get_next_line(int fd);
-char	*ft_strndup(char *src, size_t n);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strchr(char const *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	  *get_next_line(int fd);
+size_t	ft_strlen(char const *str);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	  *ft_strndup(char *src, size_t n);
+void	  *ft_calloc(size_t nmemb, size_t size);
+char	  *ft_strchr(char const *s, int c);
+char	  *ft_strjoin(char const *s1, char const *s2);
 
 #endif
