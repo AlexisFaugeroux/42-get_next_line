@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaugero <afaugero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:55:26 by afaugero          #+#    #+#             */
-/*   Updated: 2024/12/19 10:27:22 by afaugero         ###   ########.fr       */
+/*   Updated: 2024/12/19 10:27:10 by afaugero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line_bonus.h"
 #include <fcntl.h>
-#include "get_next_line.h"
 
 char	*ft_join(char *buffer, char *tmp)
 {
@@ -88,20 +88,20 @@ void	*ft_memmove(char *dest, void const *src, size_t n)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer = NULL;
+	static char	*buffer[FD_SETSIZE];
 	char		*line;
 	ssize_t		l_len;
 	ssize_t		b_len;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > FD_SETSIZE || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!buffer || !ft_strchr(buffer, '\n'))
-		buffer = ft_read(buffer, fd);
-	line = ft_line(buffer);
+	if (!buffer[fd] || !ft_strchr(buffer[fd], '\n'))
+		buffer[fd] = ft_read(buffer[fd], fd);
+	line = ft_line(buffer[fd]);
 	l_len = ft_strlen(line);
-	b_len = ft_strlen(buffer);
-	buffer = ft_memmove(buffer, buffer + l_len, b_len - l_len + 1);
-	if (!buffer)
+	b_len = ft_strlen(buffer[fd]);
+	buffer[fd] = ft_memmove(buffer[fd], buffer[fd] + l_len, b_len - l_len + 1);
+	if (!buffer[fd])
 		return (free(line), NULL);
 	return (line);
 }
@@ -121,7 +121,7 @@ char	*get_next_line(int fd)
 		return (0);
 	}
 	i = 0;
-	while (i < 1)
+	while (i < 10)
 	{
 		line = get_next_line(fd);
 		if (line)

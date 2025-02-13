@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afaugero <afaugero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:41:08 by afaugero          #+#    #+#             */
-/*   Updated: 2024/12/19 10:27:32 by afaugero         ###   ########.fr       */
+/*   Updated: 2024/12/19 10:27:38 by afaugero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stddef.h>
 
 size_t	ft_strlen(char const *str)
@@ -95,19 +95,23 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t			j;
 	char			*strjoin;
 
-	if (!s1)
-		return (NULL);
-	if (!s2)
-		return (s1);
-	strjoin = (char *)malloc(sizeof(char) * (len + 1));
-	if (!strjoin)
-		return (NULL);
-	i = -1;
-	while (*(s1 + ++i))
-		*(strjoin + i) = *(s1 + i);
-	j = -1;
-	while (*(s2 + ++j))
-		*(strjoin + i++) = *(s2 + j);
-	*(strjoin + len) = '\0';
-	return (strjoin);
+	if (s1 || s2)
+	{
+		if (!s1)
+			return (s2);
+		if (!s2)
+			return (s1);
+		strjoin = (char *)malloc(sizeof(char) * (len + 1));
+		if (!strjoin)
+			return (NULL);
+		i = -1;
+		while (*(s1 + ++i))
+			*(strjoin + i) = *(s1 + i);
+		j = -1;
+		while (*(s2 + ++j))
+			*(strjoin + i++) = *(s2 + j);
+		*(strjoin + len) = '\0';
+		return (strjoin);
+	}
+	return (NULL);
 }
